@@ -1,0 +1,48 @@
+<div class="item_visual">
+	{% for ProductImage in Product.ProductImage %}
+		<div class="slide-item">
+			<span class="zoom" id="ex{{ loop.index }}">
+				<img src="{{ asset(ProductImage, 'save_image') }}" alt="{{ loop.first ? Product.name : '' }}">
+			</span>
+        </div>
+	{% else %}
+		<div class="slide-item"><img src="{{ asset(''|no_image_product, 'save_image') }}" alt="{{ loop.first ? Product.name : '' }}" /></div>
+	{% endfor %}
+</div>
+{% if Product.ProductImage|length > 1 %}
+<div class="item_nav">
+	{% for ProductImage in Product.ProductImage %}
+		<div class="slideThumb" data-index="{{ loop.index0 }}"><img src="{{ asset(ProductImage, 'save_image') }}" alt=""></div>
+	{% endfor %}
+</div>
+{% endif %}
+
+	<!-- ▼スライド設定 -->
+    <script>
+        $(function() {
+            // bfcache無効化
+            $(window).bind('pageshow', function(event) {
+                if (event.originalEvent.persisted) {
+                    location.reload(true);
+                }
+            });
+
+            $('.item_visual').slick({
+                dots: false,
+                arrows: false,
+				adaptiveHeight: true, //スライドの高さの自動調整
+                responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        dots: true
+                    }
+                }]
+            });
+
+            $('.slideThumb').on('click', function() {
+                var index = $(this).attr('data-index');
+                $('.item_visual').slick('slickGoTo', index, false);
+            })
+        });
+    </script>
+

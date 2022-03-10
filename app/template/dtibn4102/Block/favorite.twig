@@ -1,0 +1,41 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% if is_granted('ROLE_USER') %}
+    <div class="click_area"><i class="far fa-heart"></i><span>{{ 'お気に入り'|trans }}</span></div>
+    <div class="panel">
+        <div class="content">
+            <div class="message">
+                お気に入りの商品やご購入を予定されている商品をリストアップできるあなただけの商品リストページが作成いただけます。<br />
+                各商品の<span class="ec-color-red">商品詳細画面から「お気に入り」ボタンをクリック</span>して、商品リストに追加してください。<br />
+            </div>
+            <div class="favorite_btn">
+                <a class="ec-blockBtn--blue" href="{{ url('mypage_favorite') }}"><span>{{ 'マイページ/お気に入り一覧'|trans }}</span></a>
+                <div style="text-align:left; margin-top:16px;">お気に入り商品リストは、マイページのお気に入り一覧でご覧いただけます。</div>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="click_area"><i class="far fa-heart"></i>{{ 'お気に入り'|trans }}</div>
+    <div class="panel">
+        <div class="content">
+            <div class="message">
+                お気に入り商品リストをご覧頂くにはログインが必要です。会員の方はログインしてください。<br /><br />
+                会員IDをお持ちでない方は新規会員登録（無料）をお願いいたします。<br />
+            </div>
+            <div class="favorite_btn">
+                <a class="ec-blockBtn--blue" href="{{ url('mypage_favorite') }}"><span>{{ 'ログイン'|trans }}</span></a><br />
+                <a class="ec-blockBtn--black" href="{{ url('entry') }}">{{ '新規会員登録'|trans }}</a>
+            </div>
+        </div>
+    </div>
+{% endif %}
+

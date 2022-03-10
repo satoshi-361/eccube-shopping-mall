@@ -1,0 +1,108 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+
+    <div class="topic_area">
+    	<h3>－ TOPICS －</h3>
+    	<div class="topic_box">
+        	{# イメージ：横幅600px 高さ400px #}
+        	<div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+                	<div class="date"><span>NEWS</span>2025-09-01</div>
+					クセがなく、塩気も少なくとても美味！<br />
+					チーズ、オリーブ、チーズのブレッドスティック
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+                	<div class="date"><span>NEWS</span>2025-08-15</div>
+					長い成熟機関によってグリュイエール独特のコクと香りが産まれます。
+                </a>
+            </div>
+        	<div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+					<div class="date"><span>NEWS</span>2025-08-01</div>
+                    スイス東部の小さな村アッペンツェルで作らるチーズ。<br />
+					製造法が独特で、香りが強めなチーズです。
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+                	<div class="date"><span>NEWS</span>2025-07-20</div>
+					とても食べやすいセミ・ハード系のチーズです。<br />
+                    やや香りが強めですが、日本人好みの味です。
+                </a>
+            </div>
+        	<div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+                	<div class="date"><span>NEWS</span>2025-07-05</div>
+                    クセがなく、塩気も少なくとても美味！<br />
+					チーズ、オリーブ、チーズのブレッドスティック
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+					<div class="date"><span>NEWS</span>2025-06-15</div>
+                    長い成熟機関によってグリュイエール独特のコクと香りが産まれます。
+                </a>
+            </div>
+        	<div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+					<div class="date"><span>NEWS</span>2025-06-01</div>
+                    スイス東部の小さな村アッペンツェルで作らるチーズ。<br />
+					製造法が独特で、香りが強めなチーズです。
+                </a>
+            </div>
+            <div class="item">
+                <a href="{{ url('product_list') }}?category_id=1">
+                    <img src="{{ asset('assets/img/top/topic_001.jpg') }}">
+					<div class="date"><span>NEWS</span>2025-05-20</div>
+                    とても食べやすいセミ・ハード系のチーズです。<br />
+                    やや香りが強めですが、日本人好みの味です。
+                </a>
+            </div>
+        </div>
+    </div>
+
+<script>
+	$(document).ready(function(){
+	  const target = $('.topic_box')
+	  target.slick({
+	  slidesToShow: 4,
+	  initialSlide: 2,
+	  dots: false,
+	  centerMode: true,
+	  prevArrow: '<button class="topic_prev"><i class="fas fa-arrow-alt-circle-left"></i></button>',
+	  nextArrow: '<button class="topic_next"><i class="fas fa-arrow-alt-circle-right"></i></button>',
+	  responsive: [{
+               breakpoint: 768,
+                    settings: {
+                         slidesToShow: 3,
+						 initialSlide: 1,
+               }
+          },{
+               breakpoint: 480,
+                    settings: {
+                         slidesToShow: 1,
+						 initialSlide: 0,
+                    }
+               }
+          ]
+	  });
+	});
+</script>

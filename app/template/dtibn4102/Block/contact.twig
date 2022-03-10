@@ -1,0 +1,25 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<div class="click_area"><i class="fas fa-edit"></i><span>{{ 'お問い合わせ'|trans }}</span></div>
+<div class="panel">
+	<div class="content">
+		<div class="address">
+			〒 {{ BaseInfo.postal_code }}<br />
+			{{ BaseInfo.pref }}{{ BaseInfo.addr01 }}{{ BaseInfo.addr02 }}<br />
+			電話：{{ BaseInfo.phone_number }}<br />
+			営業時間：{{ BaseInfo.business_hour }}<br />
+		</div>
+		<div class="contact_btn">
+			<a class="ec-blockBtn--blue" href="{{ url('contact') }}">{{ 'お問い合わせフォーム'|trans }}</a>
+		</div>
+	</div>
+</div>

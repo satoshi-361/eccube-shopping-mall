@@ -1,0 +1,26 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% if is_granted('ROLE_USER') %}
+    <div class="click_area"><i class="fas fa-unlock"></i><span>{{ 'ログアウト'|trans }}</span></div>
+    <div class="panel">
+        <div class="content">
+            <div class="message">
+                現在、ログイン中です。<br />
+                ログアウトする場合は、右のボタンをクリックしてください。
+            </div>
+            <div class="logout_btn">
+                <a class="ec-blockBtn--black" href="{{ url('logout') }}">{{ 'ログアウトする'|trans }}</a>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="click_area"><a href="{{ url('mypage_login') }}"><i class="fas fa-lock"></i><span>{{ 'ログイン'|trans }}</span></a></div>
+{% endif %}

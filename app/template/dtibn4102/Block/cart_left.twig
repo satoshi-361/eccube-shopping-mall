@@ -1,0 +1,48 @@
+        	<div class="left">
+                {% if BaseInfo.delivery_free_amount is not empty or BaseInfo.delivery_free_quantity is not empty or BaseInfo.option_point == 1 %}
+                    {% if BaseInfo.option_point == 1 %}
+                        <div class="pointannounce_area">
+                            <div class="common_block_title">
+                                <i class="fab fa-product-hunt"></i> ポイントについて
+                            </div>
+                            <div class="login">
+                                {% if is_granted('ROLE_USER') %}
+                                    ようこそ！ <strong>{{ '%last_name% %first_name% 様'|trans({ '%last_name%': app.user.name01, '%first_name%': app.user.name02 })}}</strong><br />
+                                    現在の<span class="ec-color-red">{{ ' 所持ポイントは %point%pt'|trans({ '%point%': app.user.point|number_format}) }}</span> です。
+                                {% else %}
+                                    ポイント制度をご利用になられる場合は、会員登録後ログインしてくださいますようお願い致します。
+                                {% endif %}
+                            </div>
+                            <div class-"rule">
+                                ポイントはご購入金額の<span class="ec-color-red">{{ BaseInfo.basic_point_rate }}%</span> が付与されます。<br />
+                                次回商品購入時に<span class="ec-color-red">{{ BaseInfo.point_conversion_rate }}pt ＝ 1 円</span> として使用することができます。
+                            </div>
+                        </div>
+                    {% endif %}
+                    {% if BaseInfo.delivery_free_amount is not empty or BaseInfo.delivery_free_quantity is not empty %}
+                        <div class="freedelive_area">
+                            {% if BaseInfo.delivery_free_amount is not empty %}<div class="rule"><span>{{ BaseInfo.delivery_free_amount|number_format(0) }}円以上</span>のご購入で</div>{% endif %}
+                            {% if BaseInfo.delivery_free_quantity is not empty %}<div class="rule"><span>{{ BaseInfo.delivery_free_quantity|number_format(0) }}個以上</span>のご購入で</div>{% endif %}
+                            <div class="free">送料無料！</div>
+                            <div class="icon">
+                                <i class="ec-headerNav__itemIcon fas fa-truck fa-fw"></i>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {# ▼ポイントと送料無料の両方を使用しないときに表示 #}
+                    <div class="pickup">
+                        <div class="title">
+                            <i class="far fa-thumbs-up"></i> ピックアップ商品！
+                        </div>
+                        <div class="image">
+                            <a href="{{ url('homepage') }}products/detail/1">
+                                <img src="{{ url('homepage') }}html/upload/save_image/cube-2.png" alt="{{ BaseInfo.shop_name }}" />
+                            </a>
+                        </div>
+                        <div class="name">
+                            彩のジェラートCUBE
+                        </div>
+                    </div>
+                {% endif %}
+            </div>

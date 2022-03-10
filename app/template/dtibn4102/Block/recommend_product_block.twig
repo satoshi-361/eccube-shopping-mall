@@ -1,0 +1,74 @@
+{#
+ * This file is part of the Recommend Product plugin
+ *
+ * Copyright (C) EC-CUBE CO.,LTD. All Rights Reserved.
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+#}
+{% set recommend_products = repository('Plugin\\Recommend4\\Entity\\RecommendProduct').getRecommendProduct %}
+<div class="ec-role">
+	<div class="recommend_owners_area">
+		<h3>－ RECOMMEND PRODUCTS －</h3>
+    	<div class="owners_recommend">
+			{% for RecommendProduct in recommend_products %}
+
+            <div class="item">
+                <a href="{{ url('product_detail', {'id': RecommendProduct.Product.id}) }}">
+					<div class="image">
+                        <img src="{{ asset(RecommendProduct.Product.mainFileName|no_image_product, "save_image") }}">
+                    </div>
+                    <div class="name">
+                    	{{ RecommendProduct.Product.name }}
+                    </div>
+                    <div class="comment">
+                    	{{ RecommendProduct.comment|raw|nl2br }}
+                    </div>
+					<div class="price">
+						{% if RecommendProduct.Product.hasProductClass %}
+							{% if RecommendProduct.Product.getPrice02Min == RecommendProduct.Product.getPrice02Max %}
+								{{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
+							{% else %}
+								{{ RecommendProduct.Product.getPrice02IncTaxMin|price }} ～ {{ RecommendProduct.Product.getPrice02IncTaxMax|price }}
+							{% endif %}
+						{% else %}
+							{{ RecommendProduct.Product.getPrice02IncTaxMin|price }}
+						{% endif %}
+                    </div>
+                </a>
+            </div>
+			
+			{% endfor %}
+    	</div>
+    </div>
+</div>
+
+<script>
+$(function() {
+	$('.owners_recommend').css('display', 'block');
+    $('.owners_recommend').slick({
+		infinite: true,
+		dots:true,
+		slidesToShow: 4, //表示個数
+		slidesToScroll: 4, //スクロールで入れ替わる数
+		arrows:false,
+		autoplay:true,
+		autoplaySpeed:5000,
+		responsive: [{
+			breakpoint: 768,
+				settings: {
+					arrows: false,
+					slidesToShow: 3,
+					slidesToScroll: 3,
+				}
+		},{
+			breakpoint: 480,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+				}
+		}]
+	});
+});
+</script>
+

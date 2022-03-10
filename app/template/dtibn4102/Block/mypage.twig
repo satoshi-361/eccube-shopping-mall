@@ -1,0 +1,40 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% if is_granted('ROLE_USER') %}
+<div class="click_area"><i class="fas fa-user-circle"></i><span>{{ 'マイページ'|trans }}</span></div>
+<div class="panel">
+	<div class="content">
+    	<div class="message">
+            ようこそ！ <strong>{{ '%last_name% %first_name% 様'|trans({ '%last_name%': app.user.name01, '%first_name%': app.user.name02 })}}</strong><br />
+            いつもありがとうございます。<br />
+            どうぞ、お買い物をお楽しみください。
+        </div>
+        <div class="mypage_btn">
+            <a class="ec-blockBtn--blue" href="{{ url('mypage') }}">{{ 'マイページ'|trans }}</a>
+        </div>
+	</div>
+</div>
+{% else %}
+<div class="click_area"><i class="fas fa-user-circle"></i><span>{{ '新規会員登録'|trans }}</span></div>
+<div class="panel">
+	<div class="content">
+    	<div class="message">
+        	<strong>会員登録無料！</strong><br />
+			会員登録されると、便利なマイページ機能がご利用いただけます。
+        </div>
+        <div class="mypage_btn">
+            <a class="ec-blockBtn--blue" href="{{ url('entry') }}">{{ '新規会員登録'|trans }}</a>
+        </div>
+	</div>
+</div>
+{% endif %}
+

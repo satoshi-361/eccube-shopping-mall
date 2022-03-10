@@ -1,0 +1,43 @@
+{% set Categories = repository('Eccube\\Entity\\Category').getList() %}
+
+{# 親カテゴリのカウント #}
+{% set parent_cnt = 1 %}{# ←「全商品」を親カテゴリに追加して「1」とする。「全商品」を削除した場合は「0」 #}
+{% for Category in Categories %}
+	{% if Category.hierarchy == 1 %}
+		{% set parent_cnt = parent_cnt + 1 %}
+	{% endif %}
+{% endfor %}
+
+{% macro tree(Category) %}
+    {% from _self import tree %}
+    <a href="{{ url('product_list') }}?category_id={{ Category.id }}"{% if Category.hierarchy == 1 and Category.children|length > 0 %} class="parent"{% endif %}>
+        {{ Category.name }}{% if Category.hierarchy == 1 and Category.children|length > 0 %}<i class="fas fa-caret-down"></i>{% endif %}
+    </a>
+    {% if Category.children|length > 0 %}
+        <ul>
+            {% for ChildCategory in Category.children %}
+                <li>
+                    {{ tree(ChildCategory) }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{# @see https://github.com/bolt/bolt/pull/2388 #}
+{% from _self import tree %}
+
+<div class="ec-categoryNaviRole">
+    <div class="ec-itemNav">
+        <ul class="ec-itemNav__nav">
+        	{# ▼全商品 #}
+        	<li class="product_all"><a href="{{ url('homepage') }}products/list">全商品</a></li>
+            {# ▲全商品 #}
+            {% for Category in Categories %}
+                <li{% if parent_cnt < 16 %} class="parent{{ parent_cnt }}"{% endif %}>
+                    {{ tree(Category) }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

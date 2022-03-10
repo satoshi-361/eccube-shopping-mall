@@ -1,0 +1,107 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+{% set Categories = repository('Eccube\\Entity\\Category').getList() %}
+
+{% macro tree(Category) %}
+		{% from _self import tree %}
+		{% if Category.hierarchy == 1 and Category.children|length > 0 %}
+			<a class="page_link" href="{{ url('product_list') }}?category_id={{ Category.id }}"><i class="ec-headerNav__itemIcon fas fa-external-link-square-alt fa-fw"></i></a>
+			<a class="accordion-trigger{% if Category.id == app.request.query.get('category_id') %} active_open{% endif %}">{{ Category.name }}<span class="accordion-plus"></span></a>
+		{% else %}
+			<a{% if Category.id == app.request.query.get('category_id') %} class="active_open"{% endif %} href="{{ url('product_list') }}?category_id={{ Category.id }}">{{ Category.name }}</a>
+		{% endif %}
+		{% if Category.children|length > 0 %}
+			<ul{% if Category.hierarchy == 1 %} class="accordion"{% endif %}>
+				{% for ChildCategory in Category.children %}
+					<li {% if ChildCategory.id == app.request.query.get('category_id') %} class="active_open"{% endif %}>
+						<em>┗</em>{{ tree(ChildCategory) }}
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+{% endmacro %}
+
+{# @see https://github.com/bolt/bolt/pull/2388 #}
+{% from _self import tree %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script>
+$(function() {
+    //クッキーの値を設定
+    var cookie = '';
+ 
+    //クッキーが存在する場合、変数に値を設定
+    if ($.cookie('accordion_cookie') && $.cookie('accordion_cookie') != null) {
+        var cookie = $.cookie('accordion_cookie');
+    }
+ 
+    //Font Awesome CSS設定
+    var plus_icon = 'accordion-plus';
+    var minus_icon = 'accordion-minus';
+ 
+    //アコーディオントリガー数だけ実行
+    $('.accordion-trigger').each(function(index) {
+ 
+        //クッキーからアコーディオン開閉設定
+        if ($.cookie('accordion_cookie') == null || cookie.indexOf('[' + index + ']') == -1) {
+            $(this).children('span').removeClass().addClass(plus_icon);
+            $(this).next('.accordion').hide();
+            //クッキーにアコーディオンナンバーがある場合、開ける
+        } else {
+            $(this).children('span').removeClass().addClass(minus_icon);
+            $(this).next('.accordion').show();
+        }
+ 
+        //アコーディオントリガークリックされたら
+        $(this).on('click',function() {
+            $trigger_icon = $(this).children('span');
+            //アコーディオンを開閉する
+            $(this).next('.accordion').slideToggle();
+ 
+            //プラスアイコンならマイナスにして開く
+            if ($trigger_icon.hasClass('accordion-plus')) {
+                $trigger_icon.removeClass();
+				$trigger_icon.addClass(minus_icon);
+                cookie += '[' + index + ']';
+                $.cookie('accordion_cookie', cookie);
+            //プラスアイコンでないでないならプラスにして閉じる
+            } else {
+                $trigger_icon.removeClass().addClass(plus_icon);
+                cookie = cookie.replace('[' + index + ']', '');
+                //クッキーに何も保存されていなければクッキーを削除
+                if (cookie.length == 0) {
+                    $.cookie('accordion_cookie', '', {
+                        expires: -1
+                    });
+                } else {
+                    $.cookie('accordion_cookie', cookie);
+                }
+            }
+        });
+    });
+});
+</script>
+
+<div class="ec-role">
+    <div class="category_side_area">
+		<div class="category_side_title">
+			カテゴリー
+		</div>
+        <ul>
+            {% for Category in Categories %}
+                <li class="category_block">
+                    {{ tree(Category) }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

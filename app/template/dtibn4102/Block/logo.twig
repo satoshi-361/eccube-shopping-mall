@@ -1,0 +1,42 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+<div class="logo_area">
+	<div class="logo_inner">
+        <div class="logo">
+            <a href="{{ url('homepage') }}">
+                <img src="{{ asset('assets/img/common/logo.png') }}" alt="{{ BaseInfo.shop_name }}" />
+            </a>
+        </div>
+        <div class="item_area">
+            <div class="mypage item">
+                {{ include('Block/mypage.twig') }}
+            </div>
+            {% if BaseInfo.option_favorite_product %}
+                <div class="favorite item">
+                    {{ include('Block/favorite.twig') }}
+                </div>
+            {% endif %}
+            <div class="login item">
+                {{ include('Block/login.twig') }}
+            </div>
+            <div class="ec-headerNaviRole__search logo_search item">
+                {{ render(path('block_search_product')) }}
+            </div>
+            <div class="contact item">
+                {{ include('Block/contact.twig') }}
+            </div>
+			<div class="cart item ec-headerRole__cart">
+				{{ include('Block/cart.twig') }}
+			</div>
+        </div>
+    </div>
+</div>
+{{ include('Block/globalmenu.twig') }}

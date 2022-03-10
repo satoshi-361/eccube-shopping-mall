@@ -1,0 +1,149 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+{% extends 'default_frame.twig' %}
+
+{% set body_class = 'front_page' %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('assets/css/jquery.fs.zoomer.css') }}">
+    <style>
+         .zoomer_wrapper {
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            height: 500px;
+            margin: 10px 0;
+            overflow: hidden;
+            width: 100%;
+        }
+        .msg_customer {
+            background-color:#A6E39D;
+        }
+        .msg_creator {
+            background-color:#F3C0AB;
+        }
+    </style>
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('assets/js/jquery.fs.zoomer.js') }}"></script>
+    <script>
+        var count = "{{ count }}";
+        var homepage = "{{ url('homepage') }}";
+        $(document).ready(function() {
+            {% if imgCount > 0 %}
+                $(".zoomer_basic").zoomer();
+            {% endif %}
+            setInterval('readBbs()', 5000);
+        });
+        function readBbs() {
+            $.ajax( {
+                url: '',
+                type: 'POST',
+                data: { "count" : count },
+                dataType: 'json',
+                success: function(data) {
+                    
+                    for(var i in data.message) {
+                        var msg_data = "";
+                        if(data.message[i].customer_flg == 1){
+                            msg_data +='<div class="msg_customer">';
+                        }
+                        else{
+                            msg_data +='<div class="msg_creator">';   
+                        }
+
+                        msg_data +='<p>'+data.message[i].msg+'('+data.message[i].name+')</p>';
+
+                        if(data.message[i].image_flg == 1){
+                            msg_data +='<p>ファイルを共有しました。</p>';
+                        }
+
+                        msg_data +='<p>'+data.message[i].date+'</p></div>';
+                        $("#message_area").append(msg_data).trigger('create');
+                    }
+
+                    for(var i in data.image) {
+                        window.location.reload(true);
+                        //$("#image_area").append('<img src="'+homepage+'image.php?f='+data.image[i].img+'">').trigger('create');   
+                    }
+                    
+                    count = data.count;
+                },
+                error: function(xhr, status, error) {
+                    alert("通信エラー リロードします");
+                    console.log('ERROR : ' + status + ' : ' + error);
+                    window.location.reload(true);
+                }
+            });
+        }   
+    </script>
+{% endblock javascript %}
+
+{% block main %}
+    <div class="bbs">
+        <div id="image_area" class="zoomer_wrapper zoomer_basic">
+            {% for Bbs in BbsImgList %}
+                    {% if Bbs.image is not null %}
+                        <img src="{{ url('homepage') }}image.php?f={{ Bbs.image }}">                            
+                    {% endif %}
+            {% endfor %}
+        </div>
+        <div id="message_area">
+            {% for Bbs in BbsList %}
+                <div class="{% if Bbs.Customer is null %}msg_creator{% else %}msg_customer{% endif %}">
+                    <p>{{ Bbs.message }}({% if Bbs.Customer is null %}{{ Bbs.Creator.name }}{% else %}{{ Bbs.Customer.name01 }}{{ Bbs.Customer.name02 }}{% endif %})</p>
+                    {% if Bbs.image is not null %}
+                            <p>ファイルを共有しました。</p>                       
+                    {% endif %}
+                    <p>{{ Bbs.create_date|date('Y年m月d日 H時i分') }}</p>
+                </div> 
+            {% endfor %}
+        </div>
+        <div>
+            <p>{{ Product.name }}</p>
+            <p>{{ Product.description_detail|raw|nl2br }}</p>
+        </div>
+        <form method="post" action="{{ url('bbs', {id:Order.id}) }}" novalidate class="h-adr" enctype="multipart/form-data">         
+            {{ form_widget(form._token) }}
+            <div class="ec-borderedDefs">
+                <dl>
+                    <dt>
+                        {{ form_label(form.message, 'メッセージ', { 'label_attr': { 'class': 'ec-label' }}) }}
+                    </dt>
+                    <dd>
+                        <div class="ec-halfInput{{ has_errors(form.message) ? ' error' }}">
+                            {{ form_widget(form.message) }}
+                            {{ form_errors(form.message) }}
+                        </div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>
+                        {{ form_label(form.filename_file, '画像', { 'label_attr': { 'class': 'ec-label' }}) }}
+                    </dt>
+                    <dd>
+                        <div class="ec-input{{ has_errors(form.filename_file) ? ' error' }}">
+                            {{ form_widget(form.filename_file) }}
+                            {{ form_errors(form.filename_file) }}
+                        </div>
+                    </dd>
+                </dl>
+            </div>
+            <div class="ec-registerRole__actions">
+                <div class="ec-off4Grid">
+                    <div class="ec-off4Grid__cell">
+                        <button class="ec-blockBtn--action" type="submit">{{ '投稿'|trans }}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,68 @@
+<div class="ec-sliderRole_area">
+    <div class="ec-sliderRole">
+        <div class="main_visual">
+        
+            <div class="item slick-slide">
+				<img class="pc" src="{{ asset('assets/img/top/top01_pc.jpg') }}">
+				<img class="sp" src="{{ asset('assets/img/top/top01_sp.jpg') }}">
+				<div class="text1">
+					エメンターラー
+				</div>
+				<div class="text2">
+                	クセがなく、塩気も少なくとても美味！<br />
+					チーズ、オリーブ、チーズのブレッドスティック
+				</div>
+            </div>
+            
+            <div class="item slick-slide">
+				<img class="pc" src="{{ asset('assets/img/top/top01_pc.jpg') }}">
+				<img class="sp" src="{{ asset('assets/img/top/top01_sp.jpg') }}">
+				<div class="text1">
+					グリュイエール
+				</div>
+				<div class="text2">
+					長い成熟機関によってグリュイエール独特のコクと香りが産まれます。
+				</div>
+            </div>
+            
+            <div class="item slick-slide">
+				<img class="pc" src="{{ asset('assets/img/top/top01_pc.jpg') }}">
+				<img class="sp" src="{{ asset('assets/img/top/top01_sp.jpg') }}">
+				<div class="text1">
+					アッペンツェラーチーズ
+				</div>
+				<div class="text2">
+					スイス東部の小さな村アッペンツェルで作らるチーズ。<br />
+					製造法が独特で、香りが強めなチーズです。
+				</div>
+            </div>
+            
+            <div class="item slick-slide">
+				<img class="pc" src="{{ asset('assets/img/top/top01_pc.jpg') }}">
+				<img class="sp" src="{{ asset('assets/img/top/top01_sp.jpg') }}">
+				<div class="text1">
+					ティルジッター
+				</div>
+				<div class="text2">
+					とても食べやすいセミ・ハード系のチーズです。<br />
+                    やや香りが強めですが、日本人好みの味です。
+				</div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<script>
+	$(function() {
+		$('.main_visual').slick({
+			dots: true,
+			arrows: true,
+			prevArrow:'<div class="slick_arrow_prev"><i class="fas fa-chevron-circle-left"></i></div>',
+			nextArrow:'<div class="slick_arrow_next"><i class="fas fa-chevron-circle-right"></i></div>',
+			autoplay: true,
+			autoplaySpeed:6000,
+			speed: 500
+		});
+	});
+</script>

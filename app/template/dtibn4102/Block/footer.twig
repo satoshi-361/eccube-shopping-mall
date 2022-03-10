@@ -1,0 +1,67 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+<div class="ec-footerRole">
+    <div class="footer_area">
+    	<div class="footer_map">
+			<div class="item">
+				<a href="{{ url('homepage') }}"><i class="fas fa-home fa-fw"></i> HOME</a>
+				<a href="{{ url('help_about') }}"><i class="fas fa-cube fa-fw"></i> 当サイトについて</a>
+				<a href="{{ url('help_privacy') }}"><i class="fas fa-user-circle fa-fw"></i> プライバシーポリシー</a>
+				<a href="{{ url('help_tradelaw') }}"><i class="fas fa-pencil-ruler fa-fw"></i> 特定商取引法に基づく表記</a>
+				<a href="{{ url('contact') }}"><i class="fas fa-file-signature fa-fw"></i> お問い合わせ</a>
+				<a href="{{ url('help_guide') }}"><i class="fas fa-info fa-fw"></i> ご利用ガイド</a>
+			</div>
+			<div class="item">
+				{% if is_granted('ROLE_USER') %}
+					<a href="{{ url('logout') }}"><i class="fas fa-lock fa-fw"></i> ログアウト</a>
+				{% else %}
+					<a href="{{ url('mypage_login') }}"><i class="fas fa-lock fa-fw"></i> ログイン</a>
+				{% endif %}
+				<a href="{{ url('mypage') }}"><i class="fas fa-user-edit fa-fw"></i> マイページ</a>
+				<a href="{{ url('mypage_favorite') }}"><i class="fas fa-heart fa-fw"></i> お気に入り</a>
+				<a href="{{ url('cart') }}"><i class="fas fa-shopping-cart fa-fw"></i> ショッピングカート</a>
+				<a href="{{ url('entry') }}"><i class="fas fa-user fa-fw"></i> 新規会員登録</a>
+			</div>
+			<div class="item">
+				<div class="title">商品カテゴリー</div>
+				<a href="{{ url('product_list') }}"> - 全商品</a>
+				<a href="{{ url('product_list') }}?category_id=2"> - 新入荷</a>
+				<a href="{{ url('product_list') }}?category_id=1"> - ジェラート</a>
+				<a href="{{ url('product_list') }}?category_id=5"> - アイスサンド</a>
+			</div>
+			<div class="item sns_area">
+				<div class="title">Please Follow Us.</div>
+				<a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+				<a href="https://www.facebook.com/"><i class="fab fa-facebook-square"></i></a>
+				<a href="https://line.me/ja/"><i class="fab fa-line"></i></a>
+				<a href="https://www.instagram.com/?hl=ja"><i class="fab fa-instagram"></i></a>
+				<div class="title payment">Method of payment</div>
+				<span><i class="fab fa-cc-visa"></i></span>
+				<span><i class="fab fa-cc-mastercard"></i></span>
+				<span><i class="fab fa-cc-jcb"></i></span>
+				<span><i class="fab fa-cc-amex"></i></span>
+				<span><i class="fab fa-cc-diners-club"></i></span>
+				<span><i class="fab fa-cc-discover"></i></span>
+			</div>
+        </div>
+        <div class="footer_title">
+            <div class="footer_title_logo">
+                <a href="{{ url('homepage') }}">{{ BaseInfo.shop_name }}</a>
+            </div>
+            <div class="ec-footerTitle__copyright">copyright (c) {{ BaseInfo.shop_name }} all rights reserved.</div>
+        </div>
+    </div>
+</div>
+{# ▼ドロワーメニュー #}
+<div class="ec-headerRole__navSP">
+	{{ include('Block/nav_sp.twig') }}
+</div>
+{# ▲ #}

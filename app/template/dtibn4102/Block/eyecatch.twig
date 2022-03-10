@@ -1,0 +1,64 @@
+{#
+This file is part of EC-CUBE
+
+Copyright(c) EC-CUBE CO.,LTD. All Rights Reserved.
+
+http://www.ec-cube.co.jp/
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+#}
+
+<div class="ec-role">
+    <div class="eyecatch_area">
+    	<h3>－ Cheeses from Switzerland －</h3>
+        <div class="right_area">
+        	{# イメージ：横幅1000px 高さ800px #}
+        	<div class="main">
+            	<img src="{{ asset('assets/img/top/eyecatch_main.jpg') }}">
+                <div class="text">Cheeses<br />from<br />Switzerland</div>
+                <a class="ec-blockBtn--top" href="{{ url('product_list') }}?category_id=4">{{ '一覧を見る'|trans }}</a>
+            </div>
+        </div>
+    	<div class="left_area">
+        	{# イメージ：横幅400px 高さ500px #}
+        	<div class="product">
+            	<a href="{{ url('product_detail', {'id': '1'}) }}">
+                    <img src="{{ asset('assets/img/top/eyecatch_001.jpg') }}">
+                    <div class="name">
+                        さまざまなチーズの盛り合わせ
+                        <div class="price">&yen;5,000（税込）</div>
+                    </div>
+                </a>
+            </div>
+        	<div class="product">
+                <a href="{{ url('product_detail', {'id': '2'}) }}">
+                    <img src="{{ asset('assets/img/top/eyecatch_001.jpg') }}">
+                    <div class="name">
+                        ハム、アボカドソース、カラメル玉ねぎのサンドイッチ
+                        <div class="price">&yen;1,000（税込）</div>
+                    </div>
+                </a>
+            </div>
+        	<div class="product">
+            	<a href="{{ url('product_detail', {'id': '1'}) }}">
+                    <img src="{{ asset('assets/img/top/eyecatch_001.jpg') }}">
+                    <div class="name">
+                        サラミとチーズのセット
+                        <div class="price">&yen;4,000（税込）</div>
+                    </div>
+                </a>
+            </div>
+        	<div class="product">
+            	<a href="{{ url('product_detail', {'id': '2'}) }}">
+                    <img src="{{ asset('assets/img/top/eyecatch_001.jpg') }}">
+                    <div class="name">
+                        ナッツとフルーツとチーズプレート
+                        <div class="price">&yen;5,000（税込）</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

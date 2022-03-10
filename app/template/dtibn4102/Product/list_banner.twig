@@ -1,0 +1,30 @@
+<div class="category_pagebanner_area">
+	<div class="banner">
+    	{% if app.request.query.get('category_id') == 1 %}
+			<img src="{{ asset('assets/img/category/category1.jpg') }}">
+        {% elseif app.request.query.get('category_id') == 2 %}
+			<img src="{{ asset('assets/img/category/category2.jpg') }}">
+        {% elseif app.request.query.get('category_id') == 3 %}
+			<img src="{{ asset('assets/img/category/category3.jpg') }}">
+        {% elseif app.request.query.get('category_id') == 4 %}
+			<img src="{{ asset('assets/img/category/category4.jpg') }}">
+        <!-- ▼全ての商品の場合 -->
+        {% elseif Category is null %}
+        	<img src="{{ asset('assets/img/category/category.jpg') }}">
+        <!-- ▼指定されていないカテゴリの場合 -->
+        {% else %}
+        	<img src="{{ asset('assets/img/category/category.jpg') }}">
+        {% endif %}
+        
+        <div class="category_name">
+			{% if Category is not null %}
+				<div class="name">{{ Category.name }}</div>
+			{% else %}
+				<div class="name">全ての商品</div>
+			{% endif %}
+			{% if search_form.vars.value and search_form.vars.value.name %}
+				<div class="search">{{ '「%name%」の検索結果'|trans({ '%name%': search_form.vars.value.name }) }}</div>
+			{% endif %}
+        </div>
+	</div>
+</div>
